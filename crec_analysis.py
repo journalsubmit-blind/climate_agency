@@ -13,7 +13,7 @@ CON = sqlite3.connect(os.path.expanduser(
 
 CUR = CON.cursor()
 
-MAIN_KEYWORD = r'climate\schange|global\swarming' # Used to reduce full db
+MAIN_KEYWORD = r'climate\schange|global\swarming' # Reduce full db to keywords
 
 QUERY1 = r'\b(climate\schange|global\swarming)\W+(?:\w+\W+){0,150}?(fight(ing)?|(battle|battling)|must act|combat(ing)?|(struggle|struggling)|(oppose|opposing)|fight(ing)?\sback|defend(ing?)|press(ing)?|push(ing)?|campaign(ing)?)|(fight(ing)?|(battle|battling)|must act|combat(ing)?|(struggle|struggling)|(oppose|opposing)|fight(ing)?\sback|defend(ing?)|press(ing)?|push(ing)?|campaign(ing)?)\W+(?:\w+\W+){0,150}?(climate\schange|global\swarming)\b'
 QUERY1_DESC = 'Active-agentic framing'
@@ -32,7 +32,7 @@ def df_main():
     """Pull full database into dataframe"""
     crec_df = pd.read_sql("Select * from crec", CON, index_col='UTC')
     crec_df['html_data'] = crec_df['html_data'].str.replace('\n', ' ')
-    crec_df = crec_df.set_index(pd.DatetimeIndex(crec_df.index)).ix[:'2016-12-31'] #control date range of df
+    crec_df = crec_df.set_index(pd.DatetimeIndex(crec_df.index)).ix[:'2016-12-31'] # Control date range of df
     return crec_df
 
 def df_reduce():
